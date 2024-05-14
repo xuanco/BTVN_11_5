@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BTVN</title>
+</head>
+<body>
+<button onclick="productList.showList()">List</button>
+<button onclick="productList.showFormAdd()">Add</button>
+<div id="disp"></div>
+<script>
+    let productList = {
+        list: ['Toyota','hyundai','suzuki'],
+        showList: function(){
+            let str = '<h2>Danh sách sản phẩm</h2>';
+            str += `<p>Số lượng sản phẩm: ${this.list.length}</p>`;
+            for (let i = 0; i < this.list.length; i++) {
+                str += `<h3>${this.list[i]}
+                     <button onclick="productList.edit(${i})">Edit</button>
+                     <button onclick="productList.deleteProduct(${i})">Delete</button>
+                     </h3>`;
+            }
+            document.getElementById('disp').innerHTML = str;
+        },
+        showFormAdd: function() {
+            let str = '<input id="inp"><button onclick="productList.add()">Create</button>';
+            document.getElementById('disp').innerHTML = str;
+        },
+        add: function(){
+            this.list.push(document.getElementById('inp').value);
+            this.showList();
+        },
+        edit: function(index){
+            let str = `<input id="inp" value="${this.list[index]}"><button onclick="productList.save(${index})">Save</button>`;
+            document.getElementById('disp').innerHTML = str;
+        },
+        save: function(index){
+            this.list[index] = document.getElementById('inp').value;
+            this.showList();
+        },
+        deleteProduct: function(index){
+            this.list.splice(index, 1);
+            this.showList();
+        }
+    }
+
+    productList.showList();
+</script>
+</body>
+</html>
